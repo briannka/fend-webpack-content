@@ -1,23 +1,36 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebPackPlugin = require("html-webpack-plugin")
+const path = require('path');
+const webpack = require('webpack');
+const HTMLWebPackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './src/client/index.js',
     mode: 'production',
+    entry: './src/client/index.js',
     module: {
         rules: [
             {
+                enforce: 'pre',
                 test: '/\.js$/',
                 exclude: /node_modules/,
-                loader: "babel-loader"
-            }
+                use: ["babel-loader"],
+            },
+            {
+                test: '/\.scss$/',
+                use: [ 'style-loader', 'css-loader', 'sass-loader' ],
+        }
         ]
     },
     plugins: [
-        new HtmlWebPackPlugin({
+        new HTMLWebPackPlugin({
             template: "./src/client/views/index.html",
             filename: "./index.html",
+        }),
+        new CleanWebpackPlugin({
+            dry: true,
+            verbose: true,
+            cleanStaleWebpackAssets: true,
+            protectWebpackAssets:false
         })
+
     ]
 }

@@ -1,5 +1,6 @@
 import { myFunction } from './js/nameChecker'
 import { thisFunction } from './js/formHandler'
+// import './styles/resets.scss'
 
 console.log(checkForName);
 
