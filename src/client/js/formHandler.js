@@ -1,4 +1,4 @@
-function handleSubmit(event) {
+function thisFunction(event) {
     event.preventDefault()
 
     // check what text was put into the form field
@@ -13,4 +13,4 @@ function handleSubmit(event) {
     })
 }
 
-export { handleSubmit }
+export { thisFunction }

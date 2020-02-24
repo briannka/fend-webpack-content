@@ -1,5 +1,5 @@
-import { checkForName } from './js/nameChecker'
-import { handleSubmit } from './js/formHandler'
+import { myFunction } from './js/nameChecker'
+import { thisFunction } from './js/formHandler'
 
 console.log(checkForName);
 
