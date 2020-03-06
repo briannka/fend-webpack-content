@@ -1,31 +1,60 @@
-const dotenv = require('dotenv');
-dotenv.config();
-var path = require('path')
-const express = require('express')
-const mockAPIResponse = require('./mockAPI.js')
-var aylien = require("aylien_textapi");
-
-const app = express()
-
-app.use(express.static('dist'))
-
-console.log(__dirname)
-
-app.get('/', function (req, res) {
-    res.sendFile('dist/index.html')
-})
-
+var path = require("path");
+const express = require("express");
+const webpack = require("webpack");
+const aylien = require("aylien_textapi");
+const bodyParser = require("body-parser");
+​
+const webpackDevMiddleware = require("webpack-dev-middleware");
+const webpackHotMiddleware = require("webpack-hot-middleware");
+const config = require("../../webpack.dev");
+​
+const mockAPIResponse = require("./mockAPI.js");
+​
+const app = express();
+​
+app.use(bodyParser.urlencoded());
+​
+app.use(bodyParser.json());
+​
+const devServerEnabled = true;
+​
+const textapi = new aylien({
+  application_id: "f90d8dce",
+  application_key: "b2bd76908675a43e3e936afaf7f57cf9"
+});
+​
+if (devServerEnabled) {
+  config.plugins.push(new webpack.HotModuleReplacementPlugin());
+​
+  const compiler = webpack(config);
+​
+  //Enable "webpack-dev-middleware"
+  app.use(
+    webpackDevMiddleware(compiler, {
+      publicPath: config.output.publicPath
+    })
+  );
+​
+  //Enable "webpack-hot-middleware"
+  app.use(webpackHotMiddleware(compiler));
+}
+​
+app.use(express.static("../../dist"));
+​
+app.post("/api/test", function(req, res) {
+  textapi.sentiment(
+    {
+      text: req.body.text,
+      mode: "tweet"
+    },
+    function(error, response) {
+      if (error === null) {
+        res.status(200).send(response);
+      }
+    }
+  );
+});
 // designates what port the app will listen to for incoming requests
-app.listen(8080, function () {
-    console.log('Example app listening on port 8080!')
-})
-
-app.get('/test', function (req, res) {
-    res.send('this is working')
-})
-
-// set aylien API credentias
-var aylien = new aylien({
-    application_id: process.env.API_ID,
-    application_key: process.env.API_KEY
-  });
+app.listen(8080, function() {
+  console.log("Example app listening on port 8080!");
+});
