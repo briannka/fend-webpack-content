@@ -19,8 +19,6 @@ var textapi = new aylien({
 });
 
 app.post("/api", (req, res) => {
-  console.log(req.body);
-  console.log(req.body.userInput);
   textapi.sentiment(
     {
       text: req.body.userInput,
