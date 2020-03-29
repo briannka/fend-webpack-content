@@ -1,43 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Test</title>
-        <link rel="stylesheet" href="/styles/resets.css">
-        <link rel="stylesheet" href="/styles/base.css">
-        <link rel="stylesheet" href="/styles/header.css">
-        <link rel="stylesheet" href="/styles/form.css">
-        <link rel="stylesheet" href="/styles/footer.css">
-    </head>
+  <head>
+    <meta charset="utf-8" />
+    <title>Text evaluation</title>
+    
+  </head>
 
-    <body>
+  <body>
+    <header>
+    </header>
 
-        <header>
-            <div class="">
-                Logo
-            </div>
-            <div class="">
-                navigation
-            </div>
-        </header>
+    <main>
+      <section>
+        <div class="form">
+          <form onsubmit="return Client.handleSubmit(event)">
+            <p id="intro">
+              Type a short sentence or phrase below and find out it's positivity
+              score!
+            </p>
+            <input
+              id="name"
+              type="text"
+              name="input"
+              value=""
+              placeholder="Your input" 
+              required
+            >
+            <input
+              id="submit"
+              type="submit"
+              name="submit"
+              value="Submit"
+            />
+          </form>
+        </div>
+        <h2>Your input's rating is: </h2> 
+        <div class="results">
+        <div id="polarity"></div>
+        <!-- <div id="subjectivity"></div><br> -->
+        <div id="polarity_confidence"></div>
+        <!-- <div id="subjectivity_confidence"></div><br> -->
+      </div>
+      </section>
+    </main>
 
-        <main>
-            <section>
-                <form class="" onsubmit="return handleSubmit(event)">
-                    <input id="name" type="text" name="input" value="" onblur="onBlur()" placeholder="Name">
-                    <input type="submit" name="" value="submit" onclick="return handleSubmit(event)" onsubmit="return handleSubmit(event)">
-                </form>
-            <section>
-
-            <section>
-                <strong>Form Results:</strong>
-                <div id="results"></div>
-            </section>
-        </main>
-
-        <footer>
-            <p>This is a footer</p>
-        </footer>
-
-    </body>
+    <footer>
+      <p>Hooray!</p>
+    </footer>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("./service-worker.js")
+          .then(function(registration) {
+            console.log(
+              "ServiceWorker registration successful with scope: ",
+              registration.scope
+            );
+          })
+          .catch(function(err) {
+            //registration failed :(
+            console.log("ServiceWorker registration failed: ", err);
+          });
+      } else {
+        console.log("No service-worker on this browser");
+      }
+    </script>
+  </body>
 </html>
