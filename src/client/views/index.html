@@ -3,18 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <title>Text evaluation</title>
-    
   </head>
-
   <body>
-    <header>
-    </header>
-
     <main>
-      <section>
-        <div class="form">
-          <form onsubmit="return Client.handleSubmit(event)">
-            <p id="intro">
+      <section class="req-section">
+        <div >
+          <form class="form" onsubmit="return Client.handleSubmit(event)">
+            <p class="txt">
               Type a short sentence or phrase below and find out its positivity
               score!
             </p>
@@ -34,19 +29,16 @@
             />
           </form>
         </div>
-        <h2>Your input's rating is: </h2> 
+        <p class="txt" id="rating-res">Your input's rating is:</p> 
         <div class="results">
         <div id="polarity"></div>
         <!-- <div id="subjectivity"></div><br> -->
         <div id="polarity_confidence"></div>
         <!-- <div id="subjectivity_confidence"></div><br> -->
       </div>
+      <p class="txt">Hooray!</p>
       </section>
     </main>
-
-    <footer>
-      <p>Hooray!</p>
-    </footer>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker

@@ -5,9 +5,11 @@ async function handleSubmit(e) {
   e.preventDefault();
   // check what text was put into the form field
   // checkForName(formText)
-  
+  const reqURL = "http://localhost:8080/api";
+
   const userInput = document.getElementById("submit").value;
-  const data = await postData("http://localhost:8080/api", { userInput });
+  debugger
+  const data = await postData(reqURL, { userInput });
   console.log("Data from API in Front end: ", data);
   updateUI(data);
 }
